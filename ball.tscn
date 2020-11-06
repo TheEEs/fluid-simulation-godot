@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.0
+bounce = 3.0
+absorbent = true
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+void fragment(){
+	if(distance(UV,vec2(0.5,0.5)) < 0.24)
+	{
+		COLOR = vec4(41f / 225f, 128f / 225f, 185f / 225f, 1);
+	}
+	else
+		COLOR = vec4(0);
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 5.0
+
+[node name="ball" type="RigidBody2D"]
+mass = 0.204082
+physics_material_override = SubResource( 1 )
+gravity_scale = 9.2
+linear_velocity = Vector2( 0, 25 )
+angular_velocity = 100.0
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( -6.10352e-05, 0.793716 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
